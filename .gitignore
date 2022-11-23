@@ -1,8 +1,7 @@
-
+#Ignore txt
+readme.txt
 
 # Ignore the default SQLite database.
-/db/*.sqlite3
+/*.sqlite3
 *.sqlite3
-
-*.txt
-
+controlGasto.db

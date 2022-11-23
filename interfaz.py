@@ -199,7 +199,7 @@ class TkMoney:
 
 		nCuotas = int(self.cuotasVar.get())
 		mesActual = self.month7.get()
-		añoActual = self.years7.get()
+		#añoActual = self.years7.get()
 		montoActual = float(self.entry4.get())
 		itemCuota = self.entry5.get()
 		inicio = mesesCuota.index(mesActual) + 1

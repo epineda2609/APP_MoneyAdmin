@@ -29,6 +29,7 @@ for z in range(1,(nCuotas+1)):
 print(meslist)
 print(añolist)
 
+listo
 """
 
 class Prueba:

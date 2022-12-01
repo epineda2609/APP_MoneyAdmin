@@ -1,0 +1,10 @@
+#Archivos de texto
+readme.txt
+
+#Pruebras
+prueba.py
+
+#Bases de Datos
+*.sql
+*.sqlite3
+controlGasto.db

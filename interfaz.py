@@ -158,7 +158,7 @@ class TkMoney:
 			self.moneyaccount1.movimientosIn(self.itemG, dataT)
 			
 	def updateGasto(self):
-		"""Esta funcion suma todas las filas que componen la columna gasto e introduce este dato en la columna gasto. La idea es que cada vez que se guarde un gasto este item se actualiza"""
+		"""Esta funcion suma todas las filas que componen la columna gasto e introduce este dato en la columna gasto. La idea es que cada vez que se guarde un gasto este item se actualiza a su vez pasa el gasto actual a un elemento tipo ENTRY en la interfaz"""
 		monthUG = self.combobox3.get()
 		yearUG = self.combobox4.get()
 		dataUD = (yearUG, monthUG)
@@ -169,6 +169,8 @@ class TkMoney:
 				itemN = float(item)
 				acumulador += itemN
 		self.gastoAll.set(acumulador)
+		self.moneyaccount1.insertarExistente("gastos", acumulador, dataUD)
+
 
 	def buttonFunction(self):
 		"""Esta funcion es auxiliar: me permite que se ejecute la cantidad de funciones que yo ingrese acá con un solo boton"""

@@ -1,4 +1,4 @@
-from datetime import datetime
+"""from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 mesesCuota = ("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre","enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre","enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre")
@@ -29,3 +29,20 @@ for z in range(1,(nCuotas+1)):
 print(meslist)
 print(añolist)
 
+"""
+
+class Prueba:
+
+	def lista(self):
+		self.listado = ["ana", "pedro", "carlos", "pepe"]
+		
+
+	def recibidor(self):
+		lista = self.listado
+		tuplado = tuple(self.listado)
+		return tuplado
+
+prueba1 = Prueba()
+prueba1.lista()
+tupla = prueba1.recibidor()
+print(tupla)

@@ -240,7 +240,8 @@ class Database:
                                         silla REAL,
                                         adaptador REAL,
                                         curso2 REAL,
-                                        teclado REAL
+                                        teclado REAL,
+                                        curso3 REAL
                                         )""")
         except sqlite3.OperationalError:
             pass
@@ -248,9 +249,12 @@ class Database:
 
     def columnAdd(self, item):
         """Esta funcion añade una columna con el nuevo item de cuotas"""
-        self.conexion = sqlite3.connect("controlGasto.db")
-        self.sentenciaCA = f"ALTER TABLE cuotas ADD COLUMN {item} REAL"
-        self.cursor = self.conexion.execute(self.sentenciaCA)
+        try:    
+            self.conexion = sqlite3.connect("controlGasto.db")
+            self.sentenciaCA = f"ALTER TABLE cuotas ADD COLUMN {item} REAL"
+            self.cursor = self.conexion.execute(self.sentenciaCA)
+        except sqlite3.OperationalError:
+            pass
         self.conexion.commit()
         self.conexion.close()
 
@@ -262,9 +266,22 @@ class Database:
         self.conexion.commit()
         self.conexion.close()
 
+    def allColumnsCuotas(self, item, data):
+        """Esta funcion te devuelve todas las filas que se suman para la fila gastos"""
+        self.rowCuotas = ["filtro", "curso1", "silla", "adaptador", "curso2", "teclado", "curso3"]
+        self.rowCuotas.append(item)
+        self.conexion = sqlite3.connect("controlGasto.db")
+        yearAll = str(data[0])
+        monthAll = data[1]
+        rowCuotasT = str(tuple(self.rowCuotas))
+        print(rowCuotasT)
+        # sentenciaAll = f"SELECT {rowCuotasT} FROM cuotas WHERE  año={yearAll} AND mes='{monthAll}'"
+        # cursor = self.conexion.execute(sentenciaAll)
+        # filas = cursor.fetchall()
+        # return filas
    
 #---------------------------------------------------------------- PRUEBAS
-# prueba1 = Database()
+prueba1 = Database()
 # prueba1.inversionBolsa()
 # prueba1.movimientosIn("luz", (2022, "enero", 686))
 # prueba1.movimientosIn("agua", (2022, "enero", 567))
@@ -279,3 +296,5 @@ class Database:
 
 # print(lista) #Me devuelve una lista con una tupla
 #[(30000.0, 10000.0, 800.0, 540.0, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None)]
+# prueba1.columnAdd("curso10")
+# print(prueba1.allColumnsCuotas("curso10",(2022, "diciembre")))

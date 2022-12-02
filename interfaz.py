@@ -58,7 +58,10 @@ class TkMoney:
 		self.gastoAll = tk.DoubleVar()
 		self.entry3 = ttk.Entry(self.page1, textvariable=self.gastoAll)
 		self.entry3.grid(padx=5, pady=5, column=5, row=0)
-
+		self.label14 = ttk.Label(self.page1, text="Sobrante:")
+		self.label14.grid(padx=5, pady=5, column=4 , row=1)
+		self.entry6 = ttk.Entry(self.page1)
+		self.entry6.grid(padx=5, pady=5, column=5, row=1)
 #---------------------------------------------------------------- page2
 		self.page2 = ttk.Frame(self.notebook1)
 		self.notebook1.add(self.page2, text="IngresoJML")
@@ -171,6 +174,9 @@ class TkMoney:
 		self.gastoAll.set(acumulador)
 		self.moneyaccount1.insertarExistente("gastos", acumulador, dataUD)
 
+	def updateSobrante(self):
+		"""Esta función suma todos los ingresos y los resta con el acumulado de todos los gastos. Ese resultado (sobrante) se muestra en un elemento tipo entry y ademas se introduce en la tabla. La idea es que cada vez que se guarde un gasto o ingreso este item se actualice"""
+		
 
 	def buttonFunction(self):
 		"""Esta funcion es auxiliar: me permite que se ejecute la cantidad de funciones que yo ingrese acá con un solo boton"""

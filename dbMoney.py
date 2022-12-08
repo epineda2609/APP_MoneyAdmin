@@ -50,8 +50,6 @@ class Database:
                                         "ingresoInversiones" REAL,
                                         "ingresoUSD" REAL,
                                         "ingresoJML" REAL,
-                                        "valorUSD" REAL,
-                                        "JML_USD" REAL
                                         "ahorro" REAL,
                                         "sobrante" REAL
                                     )""")
@@ -101,6 +99,16 @@ class Database:
         yearAll = str(data[0])
         monthAll = data[1]
         sentenciaAll = f"SELECT alquiler, seguroAuto, luz, agua, tramite, gas, telefono, ABL, internet, banco, cochera, cuotas, gym, farmacia, mercado, nafta, viajes, entretenimiento, expensa, hbo, netflix, googleDrive, youtube, spotify, bienes FROM movimientos WHERE  año={yearAll} AND mes='{monthAll}'"
+        cursor = self.conexion.execute(sentenciaAll)
+        filas = cursor.fetchall()
+        return filas
+    
+    def allColumnsS(self, data):
+        """Esta funcion me devuelve todas las filas para sumar los ingresos totales"""
+        self.conexion = sqlite3.connect("controlGasto.db")
+        yearAll = str(data[0])
+        monthAll = data[1]
+        sentenciaAll = f"SELECT ingresosAdicionales, ingresoInversiones, ingresoUSD, ingresoJML FROM movimientos WHERE año={yearAll} AND mes='{monthAll}'"
         cursor = self.conexion.execute(sentenciaAll)
         filas = cursor.fetchall()
         return filas

@@ -60,7 +60,8 @@ class TkMoney:
 		self.entry3.grid(padx=5, pady=5, column=5, row=0)
 		self.label14 = ttk.Label(self.page1, text="Sobrante:")
 		self.label14.grid(padx=5, pady=5, column=4 , row=1)
-		self.entry6 = ttk.Entry(self.page1)
+		self.sobranteAll = tk.DoubleVar()
+		self.entry6 = ttk.Entry(self.page1, textvariable=self.sobranteAll)
 		self.entry6.grid(padx=5, pady=5, column=5, row=1)
 #---------------------------------------------------------------- page2
 		self.page2 = ttk.Frame(self.notebook1)
@@ -166,22 +167,36 @@ class TkMoney:
 		yearUG = self.combobox4.get()
 		dataUD = (yearUG, monthUG)
 		allGasto = self.moneyaccount1.allColumns(dataUD)
-		acumulador = 0
+		self.acumulador = 0
 		for item in allGasto[0]:
 			if item != None:
 				itemN = float(item)
-				acumulador += itemN
-		self.gastoAll.set(acumulador)
-		self.moneyaccount1.insertarExistente("gastos", acumulador, dataUD)
+				self.acumulador += itemN
+		self.gastoAll.set(self.acumulador)
+		self.moneyaccount1.insertarExistente("gastos", self.acumulador, dataUD)
 
 	def updateSobrante(self):
 		"""Esta función suma todos los ingresos y los resta con el acumulado de todos los gastos. Ese resultado (sobrante) se muestra en un elemento tipo entry y ademas se introduce en la tabla. La idea es que cada vez que se guarde un gasto o ingreso este item se actualice"""
+		monthUS = self.combobox3.get()
+		yearUS = self.combobox4.get()
+		dataUS = (yearUS, monthUS)
+		# allGasto = self.moneyaccount1.allColumns(dataUS)
+		allIngresos = self.moneyaccount1.allColumnsS(dataUS)
+		self.acumuladorIn = 0
+		for item in allIngresos[0]:
+			if item != None:
+				itemN = float(item)
+				self.acumuladorIn += itemN
+		sobrante = self.acumuladorIn - self.acumulador
+		self.sobranteAll.set(sobrante)
+		self.moneyaccount1.insertarExistente("sobrante", sobrante, dataUS)
 		
 
 	def buttonFunction(self):
 		"""Esta funcion es auxiliar: me permite que se ejecute la cantidad de funciones que yo ingrese acá con un solo boton"""
 		self.guardarMov()
 		self.updateGasto()
+		self.updateSobrante()
 
 #---------------------------------------------------------------- FUNCTIONS IngresoJML
 	def registerUSD(self):

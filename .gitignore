@@ -1,5 +1,6 @@
 #Archivos de texto
 readme.txt
+*.txt
 
 #Pruebras
 prueba.py

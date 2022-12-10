@@ -101,6 +101,7 @@ class Database:
         sentenciaAll = f"SELECT alquiler, seguroAuto, luz, agua, tramite, gas, telefono, ABL, internet, banco, cochera, cuotas, gym, farmacia, mercado, nafta, viajes, entretenimiento, expensa, hbo, netflix, googleDrive, youtube, spotify, bienes FROM movimientos WHERE  año={yearAll} AND mes='{monthAll}'"
         cursor = self.conexion.execute(sentenciaAll)
         filas = cursor.fetchall()
+        self.conexion.close()
         return filas
     
     def allColumnsS(self, data):
@@ -111,8 +112,23 @@ class Database:
         sentenciaAll = f"SELECT ingresosAdicionales, ingresoInversiones, ingresoUSD, ingresoJML FROM movimientos WHERE año={yearAll} AND mes='{monthAll}'"
         cursor = self.conexion.execute(sentenciaAll)
         filas = cursor.fetchall()
+        self.conexion.close()
         return filas
-
+    
+    def oneColumn(self, data):
+        """Esta función me devuelve la columna ingresos principales (ingresosJML)"""
+        self.conexion = sqlite3.connect("controlGasto.db")
+        yearAll = str(data[0])
+        monthAll = data[1]
+        self.cursor = self.conexion.execute(f"SELECT ingresoJML FROM movimientos WHERE año={yearAll} AND mes='{monthAll}'")
+        fila = self.cursor.fetchone()
+        self.conexion.close()
+        if fila[0] != None:
+            dataIngre = fila[0]
+            return dataIngre
+        else:
+            pass
+    
 #---------------------------------------------------------------- Tabla ingresoJML
     def ingresoJML(self):
         """Creacion de la tabla donde registro mi ingreso principal y
@@ -306,3 +322,5 @@ prueba1 = Database()
 #[(30000.0, 10000.0, 800.0, 540.0, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None)]
 # prueba1.columnAdd("curso10")
 # print(prueba1.allColumnsCuotas("curso10",(2022, "diciembre")))
+
+# print(prueba1.oneColumn((2022, "diciembre")))

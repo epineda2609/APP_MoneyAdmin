@@ -190,13 +190,27 @@ class TkMoney:
 		sobrante = self.acumuladorIn - self.acumulador
 		self.sobranteAll.set(sobrante)
 		self.moneyaccount1.insertarExistente("sobrante", sobrante, dataUS)
-		
+
+	def ahorroIn(self):
+		"""Esta función calcula el 15% de ingreso principal como ahorro y lo ingresa en la base de datos"""
+		monthUS = self.combobox3.get()
+		yearUS = self.combobox4.get()
+		dataUS = (yearUS, monthUS)
+		ingreso = self.moneyaccount1.oneColumn(dataUS)
+		if ingreso != None:
+			try:
+				ingresoAhorro = float(ingreso)
+				ahorro15= 0.15*ingresoAhorro
+				self.moneyaccount1.insertarExistente("ahorro", ahorro15, dataUS)
+			except TypeError:
+				pass
 
 	def buttonFunction(self):
 		"""Esta funcion es auxiliar: me permite que se ejecute la cantidad de funciones que yo ingrese acá con un solo boton"""
 		self.guardarMov()
 		self.updateGasto()
 		self.updateSobrante()
+		self.ahorroIn()
 
 #---------------------------------------------------------------- FUNCTIONS IngresoJML
 	def registerUSD(self):

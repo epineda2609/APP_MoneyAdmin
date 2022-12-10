@@ -7,6 +7,11 @@ DIFICULTADES
 FALTANTES
 Tabla movimientos
 -Falta colocar que el item ahorro es un 15% de los ingresos JML
+-Colocar un entry que me muestre la suma de todos los ingresos
+
+
+Extras
+- Podria hacer un boton que sea mostrar y me actualice los entry gastos, sobrante e ingresos
 
 
 SUPERADOS
